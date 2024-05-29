@@ -3,12 +3,15 @@ package com.inappstory.iasutilsconnector
 import android.util.Log
 import com.inappstory.iasutilsconnector.filepicker.DummyFilePicker
 import com.inappstory.iasutilsconnector.filepicker.IFilePicker
+import com.inappstory.iasutilsconnector.json.DummyJsonParser
+import com.inappstory.iasutilsconnector.json.IJsonParser
 import com.inappstory.iasutilsconnector.lottie.DummyLottieViewGenerator
 import com.inappstory.iasutilsconnector.lottie.ILottieViewGenerator
 
 object UtilModulesHolder {
     var lottieViewGenerator: ILottieViewGenerator = DummyLottieViewGenerator()
     var filePicker: IFilePicker = DummyFilePicker()
+    var jsonParser: IJsonParser = DummyJsonParser()
 
     init {
         initModules()

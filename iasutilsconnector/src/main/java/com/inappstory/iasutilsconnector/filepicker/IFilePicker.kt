@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 
 interface IFilePicker {
-    fun setPickerSettings(settings: FilePickerSettings?)
+    fun setPickerSettings(settings: String?)
 
     fun onBackPressed(): Boolean
 
