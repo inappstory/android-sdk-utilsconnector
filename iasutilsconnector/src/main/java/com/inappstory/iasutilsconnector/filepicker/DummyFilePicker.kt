@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 
 class DummyFilePicker : IFilePicker {
-    override fun setPickerSettings(settings: String?) {}
+    override fun setPickerSettings(settings: FilePickerSettings?) {
+
+    }
+
 
     override fun onBackPressed(): Boolean {
         return false
