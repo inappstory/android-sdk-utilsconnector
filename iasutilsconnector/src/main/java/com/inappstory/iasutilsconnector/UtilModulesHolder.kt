@@ -10,6 +10,10 @@ object UtilModulesHolder {
     var lottieViewGenerator: ILottieViewGenerator = DummyLottieViewGenerator()
     var filePicker: IFilePicker = DummyFilePicker()
 
+    init {
+        initModules()
+    }
+
     fun hasFilePickerModule(): Boolean {
         return filePicker !is DummyFilePicker
     }
@@ -18,7 +22,7 @@ object UtilModulesHolder {
         return lottieViewGenerator !is DummyLottieViewGenerator
     }
 
-    fun initModules() {
+    private fun initModules() {
         initModule("com.inappstory.utils.iasfilepicker", "FilePickerCore")
         initModule("com.inappstory.utils.iaslottie", "LottieViewCore")
     }
