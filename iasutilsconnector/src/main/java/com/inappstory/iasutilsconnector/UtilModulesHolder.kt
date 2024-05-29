@@ -6,7 +6,7 @@ import com.inappstory.iasutilsconnector.filepicker.IFilePicker
 import com.inappstory.iasutilsconnector.lottie.DummyLottieViewGenerator
 import com.inappstory.iasutilsconnector.lottie.ILottieViewGenerator
 
-class UtilModulesHolder {
+object UtilModulesHolder {
     var lottieViewGenerator: ILottieViewGenerator = DummyLottieViewGenerator()
     var filePicker: IFilePicker = DummyFilePicker()
 
