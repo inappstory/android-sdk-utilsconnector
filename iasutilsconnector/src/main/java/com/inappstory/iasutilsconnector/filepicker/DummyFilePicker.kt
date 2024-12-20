@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 
 class DummyFilePicker : IFilePicker {
+    override fun filePickerParentShown(context: Context?) {
+
+    }
+
     override fun setPickerSettings(settings: String?) {
 
     }
