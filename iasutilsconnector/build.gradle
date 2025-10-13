@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 31
+    compileSdk 35
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 35
         versionCode inappstory_connector_output_build
         versionName inappstory_connector_output_version
 
@@ -28,11 +28,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
     }
 }
 
