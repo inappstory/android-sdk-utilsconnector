@@ -1,12 +1,28 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
+
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+
+def getConnectorVersionName = { ->
+    return inappstory_connector_output_version
+}
+
+def getConnectorArtifactId = { ->
+    return "android-sdk-utilsconnector"
+}
+
+def getConnectorGhGroupId = { ->
+    return "com.github.inappstory"
+}
 
 android {
-    compileSdk 35
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 35
+        targetSdk 33
         versionCode inappstory_connector_output_build
         versionName inappstory_connector_output_version
 
@@ -31,10 +47,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        buildConfig = true
+    }
     kotlinOptions {
         jvmTarget = '1.8'
         freeCompilerArgs = ['-Xjvm-default=compatibility']
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
+    namespace 'com.inappstory.iasutilsconnector'
 }
 
 configurations {
@@ -54,6 +80,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 }
+
 
 project.afterEvaluate {
     def isAndroidLibraryProject = project.plugins.hasPlugin('com.android.library')
@@ -83,4 +110,56 @@ project.afterEvaluate {
         mergeDebugJniLibFolders.dependsOn copyDebugDeps
     }
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = getConnectorGhGroupId()
+                artifactId = getConnectorArtifactId()
+                version = System.getenv("GITHUB_REF_NAME") ?: getConnectorVersionName()
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/inappstory/android-sdk-utilsconnector")
+
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR") ?: ""
+                    password = System.getenv("GITHUB_TOKEN") ?: ""
+                }
+            }
+        }
+    }
+}
+
+/*afterEvaluate {
+    publishing {
+        publications {
+            bar(MavenPublication) {
+                from components.release
+
+                groupId getConnectorGhGroupId()
+                artifactId getConnectorArtifactId()
+                version getConnectorVersionName()
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/inappstory/android-sdk-utilsconnector")
+
+                credentials {
+                    username = githubProperties['gpr.usr'] ?: ""
+                    password = githubProperties['gpr.key'] ?: ""
+                }
+            }
+        }
+    }
+}*/
 
